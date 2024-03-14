@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import initialData from '../data';
+import { createSlice } from "@reduxjs/toolkit";
+import initialData from "../data";
 
 export const crudSlice = createSlice({
-  name: 'lists',
+  name: "lists",
   initialState: {
     data: initialData,
     expandedItems: [],
@@ -34,7 +34,7 @@ export const crudSlice = createSlice({
     handleAdd: (state) => {
       state.selectedItem = {
         id: null,
-        name: '',
+        name: "",
         subMenu: [],
       };
       state.showModal = true;
@@ -70,8 +70,8 @@ export const crudSlice = createSlice({
     handleAddSubitem: (state) => {
       const newSubitem = {
         id: Date.now(),
-        name: '',
-        icon: '',
+        name: "",
+        icon: "",
       };
       state.selectedItem.subMenu = [
         ...(state.selectedItem.subMenu || []),

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   handleSave,
-  handleAddSubitem,
   handleCloseModal,
-} from '../Reduce/crudSlice';
+} from "../Reduce/crudSlice";
 
 const Modal = () => {
   const showModal = useSelector((state) => state.lists.showModal);
@@ -25,18 +24,16 @@ const Modal = () => {
     updatedSubMenu[index] = { ...updatedSubMenu[index], name: e.target.value };
     setLocalItem({ ...localItem, subMenu: updatedSubMenu });
   };
-
   const handleAddSubitemLocal = () => {
     const newSubitem = {
       id: Date.now(),
-      name: '',
-      icon: '',
+      name: "",
+      icon: "",
     };
-    setLocalItem({
-      ...localItem,
-      subMenu: [...localItem.subMenu, newSubitem],
-    });
-    dispatch(handleAddSubitem(newSubitem));
+    setLocalItem((prevLocalItem) => ({
+      ...prevLocalItem,
+      subMenu: [...prevLocalItem.subMenu, newSubitem],
+    }));
   };
 
   const handleSaveLocal = () => {
@@ -47,37 +44,37 @@ const Modal = () => {
 
   return (
     <div
-      className='modal'
-      tabIndex='-1'
-      role='dialog'
-      style={{ display: showModal ? 'block' : 'none' , 'overflow':'auto'}}
+      className="modal"
+      tabIndex="-1"
+      role="dialog"
+      style={{ display: showModal ? "block" : "none", overflow: "auto" }}
     >
-      <div className='modal-dialog' role='document'>
-        <div className='modal-content'>
-          <div className='modal-header'>
-            <h5 className='modal-title'>
-              {selectedItem.id ? 'Edit' : 'Add'} Item
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">
+              {selectedItem.id ? "Edit" : "Add"} Item
             </h5>
             <button
-              type='button'
-              className='close'
-              data-dismiss='modal'
+              type="button"
+              className="close"
+              data-dismiss="modal"
               onClick={() => {
-                handleCloseModal();
+                dispatch(handleCloseModal());
                 setLocalItem(selectedItem);
               }}
             >
-              <span aria-hidden='true'>&times;</span>
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className='modal-body'>
+          <div className="modal-body">
             <form>
-              <div className='form-group'>
+              <div className="form-group">
                 <label>Name:</label>
                 <input
-                  type='text'
-                  className='form-control'
-                  value={localItem.name || ''}
+                  type="text"
+                  className="form-control"
+                  value={localItem.name || ""}
                   onChange={handleNameChange}
                 />
               </div>
@@ -85,19 +82,19 @@ const Modal = () => {
                 <div>
                   <h6>Subitems:</h6>
                   {localItem.subMenu.map((subItem, index) => (
-                    <div key={subItem.id} className='form-group'>
+                    <div key={subItem.id} className="form-group">
                       <label>Subitem {index + 1}:</label>
                       <input
-                        type='text'
-                        className='form-control'
+                        type="text"
+                        className="form-control"
                         value={subItem.name}
                         onChange={(e) => handleSubitemNameChangeLocal(e, index)}
                       />
                     </div>
                   ))}
                   <button
-                    type='button'
-                    className='btn btn-primary'
+                    type="button"
+                    className="btn btn-primary"
                     onClick={handleAddSubitemLocal}
                   >
                     Add Subitem
@@ -106,20 +103,20 @@ const Modal = () => {
               )}
             </form>
           </div>
-          <div className='modal-footer'>
+          <div className="modal-footer">
             <button
-              type='button'
-              className='btn btn-secondary'
+              type="button"
+              className="btn btn-secondary"
               onClick={() => {
-                handleCloseModal();
+                dispatch(handleCloseModal());
                 setLocalItem(selectedItem);
               }}
             >
               Close
             </button>
             <button
-              type='button'
-              className='btn btn-primary'
+              type="button"
+              className="btn btn-primary"
               onClick={handleSaveLocal}
             >
               Save Changes

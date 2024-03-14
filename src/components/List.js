@@ -14,9 +14,10 @@ const List = () => {
           <li
             key={item.id}
             className={`list-group-item ${
-              expandedItems.includes(item.id) && 'active'
+              expandedItems.includes(item.id) && 'active' 
             }`}
             onClick={() => dispatch(handleToggleExpand(item.id))}
+            
           >
             {item.name}
             {item.subMenu && (
